@@ -9,7 +9,10 @@ string connectionString = builder.Configuration.GetConnectionString("MySql");
 
 builder.Services.AddTransient<RepositoryPersonajes>();
 builder.Services.AddDbContext<PersonajesContext>(options=>options.UseMySQL(connectionString));
-
+builder.Services.AddCors(p => p.AddPolicy("corsenabled", options =>
+{
+    options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -24,7 +27,13 @@ if (app.Environment.IsDevelopment())
 {
     
 }
-app.MapScalarApiReference();
+
+app.MapScalarApiReference(opt =>
+{
+    opt.Title="Scalar Personajes";
+    //opt.Theme=""
+});
+app.UseCors("corsenabled");
 app.MapOpenApi();
 
 app.UseHttpsRedirection();
