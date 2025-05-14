@@ -2,6 +2,7 @@
 using APIPersonajesAWS.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace APIPersonajesAWS.Controllers
 {
@@ -34,6 +35,13 @@ namespace APIPersonajesAWS.Controllers
         public async Task<ActionResult>InsertPersonaje(string nombre,string imagen)
         {
             await this.repo.CreatePersonajeAsync(nombre, imagen);
+            return Ok();
+        }
+        [HttpPut]
+        [Route("[action]/{id}/{nombre}/{imagen}")]
+        public async Task<ActionResult> UpdatePersonaje(int id, string nombre, string imagen)
+        {
+            await this.repo.UpdatePersonaje(id, nombre, imagen);
             return Ok();
         }
     }

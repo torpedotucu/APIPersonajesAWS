@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 app.MapScalarApiReference(opt =>
 {
     opt.Title="Scalar Personajes";
-    //opt.Theme=""
+    opt.Theme=ScalarTheme.Mars;
 });
 app.UseCors("corsenabled");
 app.MapOpenApi();
